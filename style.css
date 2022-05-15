@@ -1,0 +1,11 @@
+body{
+  margin: 0;
+  background: darkgray;
+  overflow: hidden; /* This is important or scrollbar will appear */
+  text-align: center;
+}
+
+#myCanvas{
+  background: lightgray;
+
+}
