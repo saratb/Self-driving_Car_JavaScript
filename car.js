@@ -1,3 +1,5 @@
+//No libraries used but can use Box2d
+
 class Car{
     constructor(x,y,width,height){
         // Storing as atributes
@@ -19,49 +21,58 @@ class Car{
 
     //Update method
     update(){
-        if(this.controls.forward){
-            this.speed+=this.acceleration; //Speed is going off by increasing acceleration (forward)
-        }
-        if(this.controls.reverse){
-            this.speed-=this.acceleration; //Speed is going off by increasing acceleration but now backwards
-        }
+        this.#move(); //Creating a method for all the Move Update functions
+    }
 
-        // Putting a max cap on the speed
-        if(this.speed>this.maxSpeed){
-            this.speed=this.maxSpeed;
-        }
+    #move(){
+      if(this.controls.forward){
+          this.speed+=this.acceleration; //Speed is going off by increasing acceleration (forward)
+      }
+      if(this.controls.reverse){
+          this.speed-=this.acceleration; //Speed is going off by increasing acceleration but now backwards
+      }
 
-        if(this.speed<-this.maxSpeed/2){
-            this.speed=-this.maxSpeed/2; //Indicate the car is going backwards
-        }
+      // Putting a max cap on the speed
+      if(this.speed>this.maxSpeed){
+          this.speed=this.maxSpeed;
+      }
 
-        // If speed is less than 0, decrease it by the friction
-        if(this.speed>0){
-            this.speed-=this.friction;
-        }
+      if(this.speed<-this.maxSpeed/2){
+          this.speed=-this.maxSpeed/2; //Indicate the car is going backwards
+      }
 
-        // If the speed is greater than 0 add friction
-        if(this.speed<0){
-            this.speed+=this.friction;
-        }
+      // If speed is less than 0, decrease it by the friction
+      if(this.speed>0){
+          this.speed-=this.friction;
+      }
 
-        if(Math.abs(this.speed)<this.friction){
-            this.speed=0;
-        }
+      // If the speed is greater than 0 add friction
+      if(this.speed<0){
+          this.speed+=this.friction;
+      }
 
-        //Left Controls
-        if(this.controls.left){
-            this.angle+=0.03;
-        }
+      if(Math.abs(this.speed)<this.friction){
+          this.speed=0;
+      }
 
-        //Right Controls
-        if(this.controls.right){
-            this.angle-=0.03;
-        }
+      // Flip of speed isnt 0
+      if(this.speed!=0){
+          const flip=this.speed>0?1:-1; //Value of this flip is 1 or -1 based
+          // on the speed/ Can flip the controls backwards.
 
-        this.x-=Math.sin(this.angle)*this.speed; //Sin for X
-        this.y-=Math.cos(this.angle)*this.speed; //Cosine for Y
+      //Left Controls
+      if(this.controls.left){
+          this.angle+=0.03*flip; //Flip flips the controls
+      }
 
+      //Right Controls
+      if(this.controls.right){
+          this.angle-=0.03*flip;//Flip flips the controls
+      }
+
+      this.x-=Math.sin(this.angle)*this.speed; //Sin for X
+      this.y-=Math.cos(this.angle)*this.speed; //Cosine for Y
+    }
     }
 
     // Draw class
