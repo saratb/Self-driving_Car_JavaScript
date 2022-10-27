@@ -59,20 +59,21 @@ class Car{
       if(this.speed!=0){
           const flip=this.speed>0?1:-1; //Value of this flip is 1 or -1 based
           // on the speed/ Can flip the controls backwards.
+        //Left Controls
+        if(this.controls.left){
+            this.angle+=0.03*flip; //Flip flips the controls
+        }
 
-      //Left Controls
-      if(this.controls.left){
-          this.angle+=0.03*flip; //Flip flips the controls
-      }
+        //Right Controls
+        if(this.controls.right){
+            this.angle-=0.03*flip;//Flip flips the controls
+        }
 
-      //Right Controls
-      if(this.controls.right){
-          this.angle-=0.03*flip;//Flip flips the controls
       }
 
       this.x-=Math.sin(this.angle)*this.speed; //Sin for X
       this.y-=Math.cos(this.angle)*this.speed; //Cosine for Y
-    }
+
     }
 
     // Draw class
@@ -91,6 +92,6 @@ class Car{
         );
         ctx.fill();
 
-        ctx.restore();
+        ctx.restore(); //Restore otherwise will translate a lot of times
     }
 }

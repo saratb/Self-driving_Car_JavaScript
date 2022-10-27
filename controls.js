@@ -27,8 +27,6 @@ class Controls{
                 this.reverse=true;
                 break;
           }
-
-          console.table(this);
         }
 
 
